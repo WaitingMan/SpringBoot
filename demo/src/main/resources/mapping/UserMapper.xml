@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhangcx.user.mapper.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.zhangcx.user.pojo.User" >
+    <id column="uuid" property="uuid" jdbcType="VARCHAR" />
+    <result column="usercode" property="usercode" jdbcType="VARCHAR" />
+    <result column="nickname" property="nickname" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="freezeflag" property="freezeflag" jdbcType="VARCHAR" />
+    <result column="recordtime" property="recordtime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    uuid, usercode, nickname, password, freezeflag, recordtime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_tb
+    where uuid = #{uuid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from user_tb
+    where uuid = #{uuid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.zhangcx.user.pojo.User" >
+    insert into user_tb (uuid, usercode, nickname, 
+      password, freezeflag, recordtime
+      )
+    values (#{uuid,jdbcType=VARCHAR}, #{usercode,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, 
+      #{password,jdbcType=VARCHAR}, #{freezeflag,jdbcType=VARCHAR}, #{recordtime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zhangcx.user.pojo.User" >
+    insert into user_tb
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="uuid != null" >
+        uuid,
+      </if>
+      <if test="usercode != null" >
+        usercode,
+      </if>
+      <if test="nickname != null" >
+        nickname,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="freezeflag != null" >
+        freezeflag,
+      </if>
+      <if test="recordtime != null" >
+        recordtime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="uuid != null" >
+        #{uuid,jdbcType=VARCHAR},
+      </if>
+      <if test="usercode != null" >
+        #{usercode,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null" >
+        #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="freezeflag != null" >
+        #{freezeflag,jdbcType=VARCHAR},
+      </if>
+      <if test="recordtime != null" >
+        #{recordtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zhangcx.user.pojo.User" >
+    update user_tb
+    <set >
+      <if test="usercode != null" >
+        usercode = #{usercode,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null" >
+        nickname = #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="freezeflag != null" >
+        freezeflag = #{freezeflag,jdbcType=VARCHAR},
+      </if>
+      <if test="recordtime != null" >
+        recordtime = #{recordtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where uuid = #{uuid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zhangcx.user.pojo.User" >
+    update user_tb
+    set usercode = #{usercode,jdbcType=VARCHAR},
+      nickname = #{nickname,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      freezeflag = #{freezeflag,jdbcType=VARCHAR},
+      recordtime = #{recordtime,jdbcType=TIMESTAMP}
+    where uuid = #{uuid,jdbcType=VARCHAR}
+  </update>
+</mapper>
